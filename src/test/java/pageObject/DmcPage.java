@@ -1,5 +1,7 @@
 package pageObject;
 
+import dataobject.FormRegistration;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,21 +39,21 @@ public class DmcPage extends BasePage {
         return label.isVisible(LABEL_NAME);
     }
 
-    public void inputName() {
+    public void inputName(FormRegistration formRegistration) {
         label.waitElement(MAIL_FIELD);
-        field.inputChars(NAME_FIELD, NAME);
+        field.inputChars(NAME_FIELD, formRegistration.getName());
     }
 
-    public void inputPhone() {
-        field.inputChars(PHONE_FIELD, PHONE);
+    public void inputPhone(FormRegistration formRegistration) {
+        field.inputChars(PHONE_FIELD, formRegistration.getPhone());
     }
 
-    public void inputMail() {
-        field.inputChars(MAIL_FIELD, MAIL);
+    public void inputMail(FormRegistration formRegistration) {
+        field.inputChars(MAIL_FIELD, formRegistration.getMail());
     }
 
-    public void inputAddress() {
-        field.inputChars(ADDRESS_FILED, ADDRESS);
+    public void inputAddress(FormRegistration formRegistration) {
+        field.inputChars(ADDRESS_FILED, formRegistration.getAddress());
     }
 
     public void clickAccept() {
@@ -62,16 +64,9 @@ public class DmcPage extends BasePage {
         button.clickButtonJs(SUBMIT_BUTTON);
     }
 
-    public boolean isCorrectValue() {
-        List<String> list = new ArrayList<>();
-        ArrayList<String> list2 = new ArrayList<>();
-        list2.add(NAME);
-        list2.add("+7 (800) 000-0000");
-        list2.add(MAIL);
-        list2.add(ADDRESS);
-        list = label.getTextFromList(ALL_VALUE);
-        System.out.println(list);
-        return list.equals(list2);
+    public boolean isCorrectValue(FormRegistration formRegistration) {
+        List<String> list  = label.getTextFromList(ALL_VALUE);
+        return list.equals(formRegistration.getListValue());
     }
 
     public String getEmailValidateMessage() {

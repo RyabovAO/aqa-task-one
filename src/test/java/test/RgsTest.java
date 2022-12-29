@@ -1,5 +1,6 @@
 package test;
 
+import dataobject.FormRegistration;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,6 +14,7 @@ public class RgsTest {
     private final static String URL = "https://www.rgs.ru/";
     private StartPage startPage = new StartPage();
     private DmcPage dmcPage = new DmcPage();
+    private FormRegistration formRegistration = new FormRegistration();
 
     @Before
     public void startTest() {
@@ -34,12 +36,12 @@ public class RgsTest {
         dmcPage.clickSendAppButton();
         Assert.assertTrue("Форма для заполнения не видима", dmcPage.isVisibleForm());
 
-        dmcPage.inputName();
-        dmcPage.inputPhone();
-        dmcPage.inputMail();
-        dmcPage.inputAddress();
+        dmcPage.inputName(formRegistration);
+        dmcPage.inputPhone(formRegistration);
+        dmcPage.inputMail(formRegistration);
+        dmcPage.inputAddress(formRegistration);
         dmcPage.clickAccept();
-        Assert.assertTrue("Значения не совпадают", dmcPage.isCorrectValue());
+        Assert.assertTrue("Значения не совпадают", dmcPage.isCorrectValue(formRegistration));
 
         dmcPage.clickSubmitButton();
         Assert.assertEquals("Сообщение не появилось",
